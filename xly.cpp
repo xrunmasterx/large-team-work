@@ -133,64 +133,63 @@ struct Node *Tcreat()
 	 p1->next=NULL;                   //最后将尾节点指向空指针 
   }
   
-void gotoxy(int x,int y)                                                                              //做界面用的光标移动函数 
-{
-	COORD gb;  //windows.h内用于确认光标位置的函数 
-  	gb.X=x;
-  	gb.Y=y;    //定义光标的xy坐标 
-  	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),gb);
-}
-  /*开始运行*/
-  int main()
-  {
-  	struct Node *head; 
-  	int choice;
-  	gotoxy(0,0);
-	printf("1.创建单链表");
-	gotoxy(0,1);
-	printf("2.创建双向链表");
-	gotoxy(0,2);
-	printf("3.链表奇偶调换");
-	gotoxy(0,3);
-	printf("4.判断链表是否成环");
-	gotoxy(0,4);
-	printf("5.反转链表");
-	gotoxy(0,5);
-    scanf("%d",&choice);
-
-	switch(choice)
-	{
-	case 1:
-		gotoxy(0,6);
-		head=creat();
-		printf("链表创建成功"); 
-		break;
-	case 2:
-		head=Tcreat();
-		gotoxy(0,6);
-		printf("链表创建成功"); 
-		break;
-	case 3:
-		if(head!=NULL)
-		turn(head);
-		gotoxy(0,6);
-		printf("链表奇偶调转成功");
-		break;
-	case 4:
-		if(head!=NULL)
-		gotoxy(0,6);
-		middle(head);
-		break; 
-	case 5:
-		if(head!=NULL)
-		gotoxy(0,6);
-		cycle(head);
-		break;
-	case 6:
-	if(head!=NULL)
-		rollback(head);
-		gotoxy(0,6);
-		printf("链表逆序成功");
-		break; 
-	}
-   } 
+//void gotoxy(int x,int y)                                                                              //做界面用的光标移动函数 
+//{
+//	COORD gb;  //windows.h内用于确认光标位置的函数 
+//  	gb.X=x;
+//  	gb.Y=y;    //定义光标的xy坐标 
+//  	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),gb);
+//}
+//  /*开始运行*/
+//  int main()
+//  {
+//  	struct Node *head; 
+//  	int choice;
+//  	gotoxy(0,0);
+//	printf("1.创建单链表");
+//	gotoxy(0,1);
+//	printf("2.创建双向链表");
+//	gotoxy(0,2);
+//	printf("3.链表奇偶调换");
+//	gotoxy(0,3);
+//	printf("4.判断链表是否成环");
+//	gotoxy(0,4);
+//	printf("5.反转链表");
+//	gotoxy(0,5);
+//    scanf("%d",&choice);
+//	switch(choice)
+//	{
+//	case 1:
+//		gotoxy(0,6);
+//		head=creat();
+//		printf("链表创建成功"); 
+//		break;
+//	case 2:
+//		head=Tcreat();
+//		gotoxy(0,6);
+//		printf("链表创建成功"); 
+//		break;
+//	case 3:
+//		if(head!=NULL)
+//		turn(head);
+//		gotoxy(0,6);
+//		printf("链表奇偶调转成功");
+//		break;
+//	case 4:
+//		if(head!=NULL)
+//		gotoxy(0,6);
+//		middle(head);
+//		break; 
+//	case 5:
+//		if(head!=NULL)
+//		gotoxy(0,6);
+//		cycle(head);
+//		break;
+//	case 6:
+//	if(head!=NULL)
+//		rollback(head);
+//		gotoxy(0,6);
+//		printf("链表逆序成功");
+//		break; 
+//	}
+//   } 
