@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<windows.h>
+#include<conio.h>
 /*单向结构体*/
 struct Node          
 {
@@ -9,34 +10,37 @@ struct Node
   	struct Node *prior;
 } ;
 /*单链表创建函数 */
-struct Node *creat()                                
+struct Node *creat(Node *head1)                                
 {
 	int n;
 	struct Node *head;                                       //存放头文件
 	struct Node *neww;                                       //存放新建的节点
  	struct Node *endd;                                       //存放上一个节点
-	head=(struct Node*)malloc(sizeof(struct Node));         //为新建节点开辟新的空间
-	head->next=NULL;                                          //先让头文件指向空指针    
+ 	head1=head;                                              //确保链表在给定的head1头上创建 
+	head=(struct Node*)malloc(sizeof(struct Node));          //为新建节点开辟新的空间
+	head->next=NULL;                                         //先让头节点指向空指针
+	head->prior=NULL;                                        //让头节点上一指向节点为空 
 	endd=head;                                                
-	scanf("%d,&n");                                           //为头节点录入数据 
-	while(n>0)                                                //判断头节点数据是否可以录入 
+	scanf("%d,&n");                                          //为头节点录入数据 
+	while(n>0)                                               //判断头节点数据是否可以录入 
 	{
-		neww=(struct Node*)malloc(sizeof(struct Node));     //开创新的节点 
+		neww=(struct Node*)malloc(sizeof(struct Node));      //开创新的节点 
 		neww->sum=n;                                         //给新节点录入数据 
-		neww->next=NULL;                                      //新节点指向下一个地址为空指针 
-		endd->next=neww;                                      //上一个节点指向新指针 
-		endd=neww;                                            //上一个节点的标记指针向后一个节点移动 
-		scanf("%d",&n);                                       //重新输入数据再次判断是否可以录入 
+		neww->next=NULL;                                     //新节点指向下一个地址为空指针
+		neww->prior=NULL;                                    //新节点指向上一个节点为空 
+		endd->next=neww;                                     //上一个节点指向新指针 
+		endd=neww;                                           //上一个节点的标记指针向后一个节点移动
+		scanf("%d",&n);                                      //重新输入数据再次判断是否可以录入 
 	}
-	return head;
 }; 
 /*双向链表创建*/
-struct Node *Tcreat()
+struct Node *Tcreat(Node *head1)
 {
 	int n;
 	struct Node *head;                                       //存放头文件
 	struct Node *neww;                                       //存放新建的节点
  	struct Node *endd;
+ 	head1=head;                                              //确保链表在给定的head1头上创建 
 	head=(struct Node*)malloc(sizeof(struct Node));
 	head->prior=NULL;
 	head->next=NULL;
@@ -48,7 +52,7 @@ struct Node *Tcreat()
 	neww->sum=n;
 	neww->next=NULL;
 	neww->prior=endd;                                         //上面与单链表的创建等同  该处多了一个指向上一节点的操作 
-	endd->next=neww;                                          
+	endd->next=neww;                                           
 	endd=neww;
 	scanf("%d",&n);
 	}
@@ -133,63 +137,75 @@ struct Node *Tcreat()
 	 p1->next=NULL;                   //最后将尾节点指向空指针 
   }
   
-//void gotoxy(int x,int y)                                                                              //做界面用的光标移动函数 
-//{
-//	COORD gb;  //windows.h内用于确认光标位置的函数 
-//  	gb.X=x;
-//  	gb.Y=y;    //定义光标的xy坐标 
-//  	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),gb);
-//}
-//  /*开始运行*/
-//  int main()
-//  {
-//  	struct Node *head; 
-//  	int choice;
-//  	gotoxy(0,0);
-//	printf("1.创建单链表");
-//	gotoxy(0,1);
-//	printf("2.创建双向链表");
-//	gotoxy(0,2);
-//	printf("3.链表奇偶调换");
-//	gotoxy(0,3);
-//	printf("4.判断链表是否成环");
-//	gotoxy(0,4);
-//	printf("5.反转链表");
-//	gotoxy(0,5);
-//    scanf("%d",&choice);
-//	switch(choice)
-//	{
-//	case 1:
-//		gotoxy(0,6);
-//		head=creat();
-//		printf("链表创建成功"); 
-//		break;
-//	case 2:
-//		head=Tcreat();
-//		gotoxy(0,6);
-//		printf("链表创建成功"); 
-//		break;
-//	case 3:
-//		if(head!=NULL)
-//		turn(head);
-//		gotoxy(0,6);
-//		printf("链表奇偶调转成功");
-//		break;
-//	case 4:
-//		if(head!=NULL)
-//		gotoxy(0,6);
-//		middle(head);
-//		break; 
-//	case 5:
-//		if(head!=NULL)
-//		gotoxy(0,6);
-//		cycle(head);
-//		break;
-//	case 6:
-//	if(head!=NULL)
-//		rollback(head);
-//		gotoxy(0,6);
-//		printf("链表逆序成功");
-//		break; 
-//	}
-//   } 
+void gotoxy(int x,int y)                                                                              //做界面用的光标移动函数 
+{
+	COORD gb;  //windows.h内用于确认光标位置的函数 
+  	gb.X=x;
+  	gb.Y=y;    //定义光标的xy坐标 
+  	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),gb);
+}
+  /*开始运行*/
+  int main()
+  {
+  	struct Node *head;                                          //链表头 
+  	char choice;
+  	gotoxy(0,0);                                                //使光标的位置移动到（0，0） 
+	printf("1.创建单链表");                                     //分别在各个位置打印菜单 
+	gotoxy(0,1);
+	printf("2.创建双向链表");
+	gotoxy(0,2);
+	printf("3.链表奇偶调换");
+	gotoxy(0,3);
+	printf("4.找到链表中点");
+	gotoxy(0,4);
+	printf("5.判断链表是否成环");
+	gotoxy(0,5);
+	printf("6.反转链表");
+	gotoxy(0,6);
+    //scanf("%d",&choice);
+    while(!kbhit())
+	{ 
+	choice=getch(); 
+	if(choice=='1')
+	{   
+		printf("链表开始创建：");
+		gotoxy(0,7);
+		creat(head);                                              //执行creat函数 
+		printf("链表创建成功"); 
+	}
+	else if(choice=='2')
+	{
+		printf("链表开始创建：");
+		gotoxy(0,7);
+		Tcreat(head);
+		printf("链表创建成功"); 
+	}
+	else if(choice=='3')
+	{
+		if(head!=NULL)
+		turn(head);
+		gotoxy(0,7);
+		printf("链表奇偶调转成功");
+	}
+	else if(choice=='4')
+	{
+		if(head!=NULL)
+		gotoxy(0,7);
+		middle(head);
+	}
+	else if(choice=='5')
+	{
+		if(head!=NULL)
+		gotoxy(0,7);
+		cycle(head);
+	}
+	else if(choice=='6')
+	{
+	if(head!=NULL)
+		rollback(head);
+		gotoxy(0,7);
+		printf("链表逆序成功");
+	}; 
+	}
+    }
+   
